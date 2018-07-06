@@ -134,5 +134,23 @@ export default new Vuex.Store({
           state.commit('setError', error.response.data);
         });
     },
+    changePassword: (state, payload) => {
+      Api
+        .post('/account/change_password', {
+          password: payload.password,
+          newPassword: payload.newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then((response) => {
+          state.commit('setError', response.data);
+        })
+        .catch((error) => {
+          state.commit('setError', error.response.data);
+        });
+    },
   },
 });
