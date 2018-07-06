@@ -40,6 +40,11 @@ export default new Vuex.Store({
       state.errors.msg = response.message;
       state.errors.status = response.status;
     },
+    resetError(state) {
+      state.errors.error = false;
+      state.errors.msg = null;
+      state.errors.status = null;
+    },
   },
   actions: {
     signUp: (state, payload) => {
@@ -52,6 +57,7 @@ export default new Vuex.Store({
         })
         .then((response) => {
           state.commit('setUserDetails', response.data.data);
+          state.commit('resetError');
         })
         .catch((error) => {
           state.commit('setError', error.response.data);
@@ -65,6 +71,7 @@ export default new Vuex.Store({
         })
         .then((response) => {
           state.commit('setUserDetails', response.data.data);
+          state.commit('resetError');
         })
         .catch((error) => {
           state.commit('setError', error.response.data);
