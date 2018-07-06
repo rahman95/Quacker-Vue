@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui attached segment">
-      <form class="ui form">
+      <form class="ui form" @submit.prevent="postTweet">
         <div class="field">
           <textarea name="tweet" v-model="tweet" rows="2" placeholder="Compose tweet"></textarea>
         </div>
@@ -38,6 +38,15 @@ export default {
     isFormValid () {
       return !!this.tweet
     }
-  }
+  },
+  methods: {
+    postTweet () {
+      this.$store.dispatch('postTweet')
+      .then(() => {
+        // clear input field
+        this.tweet = ''
+      })
+    }
+  },
 }
 </script>

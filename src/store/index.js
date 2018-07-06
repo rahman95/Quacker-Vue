@@ -171,6 +171,41 @@ export default new Vuex.Store({
         .catch((error) => {
           state.commit('setError', error.response.data);
         });
-    }
+    },
+    fetchTweetById: (state, payload) => {
+      Api
+        .get(`/tweets/${payload.tweet_id}`)
+        .then(response => response.data.data);
+    },
+    replyTweetById: (state, payload) => {
+      Api
+        .post(`/tweets/reply/${payload.tweet_id}`, {
+          reply: payload.reply,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then(response => response.data.data);
+    },
+    postTweet: (state, payload) => {
+      Api
+        .post('/tweet', {
+          tweet: payload.tweet,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then((response) => {
+          state.commit('setError', response.data);
+          state.dispatch('fetchTimeline');
+        })
+        .catch((error) => {
+          state.commit('setError', error.response.data);
+        });
+    },
   },
 });
