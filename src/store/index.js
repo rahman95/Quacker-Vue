@@ -12,6 +12,9 @@ export default new Vuex.Store({
       name: null,
       username: null,
       email: null,
+      location: null,
+      bio: null,
+      websiteUrl: null,
       token: null,
     },
     errors: {
@@ -21,6 +24,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    getUser: state => state.user,
     getName: state => state.user.name,
     getUserName: state => state.user.username,
     getEmail: state => state.user.email,
@@ -34,6 +38,14 @@ export default new Vuex.Store({
       state.user.username = response.user.username;
       state.user.email = response.user.email;
       state.user.token = response.token.token;
+    },
+    updateUserDetails(state, response) {
+      state.user.name = response.name;
+      state.user.username = response.username;
+      state.user.email = response.email;
+      state.user.location = response.location;
+      state.user.bio = response.bio;
+      state.user.websiteUrl = response.website_url;
     },
     setError(state, response) {
       state.errors.error = true;
@@ -72,6 +84,51 @@ export default new Vuex.Store({
         .then((response) => {
           state.commit('setUserDetails', response.data.data);
           state.commit('resetError');
+        })
+        .catch((error) => {
+          state.commit('setError', error.response.data);
+        });
+    },
+    me: (state) => {
+      Api
+        .post('/account/me', {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then((response) => {
+          state.commit('updateUserDetails', response.data.data);
+          state.commit('resetError');
+        })
+        .catch((error) => {
+          state.commit('setError', error.response.data);
+        });
+    },
+    updateProfile: (state, payload) => {
+      Api
+        .post('/account/update_profile', {
+          name: payload.name,
+          username: payload.username,
+          email: payload.email,
+          location: payload.location,
+          bio: payload.bio,
+          website_url: payload.websiteUrl,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then((response) => {
+          state.commit('setError', response.data);
+          state.commit('updateUserDetails', {
+            name: payload.name,
+            username: payload.username,
+            email: payload.email,
+            location: payload.location,
+            bio: payload.bio,
+            website_url: payload.websiteUrl,
+          });
         })
         .catch((error) => {
           state.commit('setError', error.response.data);

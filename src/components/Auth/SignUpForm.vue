@@ -98,16 +98,16 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then(() => {
-          this.$router.push('/');
-        })
-        .catch((error) => {
-          console.log(error);
-          this.notification = Object.assign({}, this.notification, {
-            message: error.response.data.message,
-            type: error.response.data.status,
-          });
+      .then(() => {
+        this.$router.push('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        this.notification = Object.assign({}, this.notification, {
+          message: error.response.data.message,
+          type: error.response.data.status,
         });
+      });
     },
   },
 };
