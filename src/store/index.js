@@ -17,6 +17,7 @@ export default new Vuex.Store({
       websiteUrl: null,
       token: null,
     },
+    timeline: null,
     errors: {
       error: false,
       msg: null,
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     getUserName: state => state.user.username,
     getEmail: state => state.user.email,
     getToken: state => state.user.token,
+    getTimeline: state => state.timeline,
     getError: state => state.errors,
   },
   mutations: {
@@ -46,6 +48,9 @@ export default new Vuex.Store({
       state.user.location = response.location;
       state.user.bio = response.bio;
       state.user.websiteUrl = response.website_url;
+    },
+    setTimeline(state, response) {
+      state.timeline = response.data.reverse();
     },
     setError(state, response) {
       state.errors.error = true;
@@ -152,5 +157,20 @@ export default new Vuex.Store({
           state.commit('setError', error.response.data);
         });
     },
+    fetchTimeline: (state) => {
+      Api
+        .get('/users/timeline', {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then((response) => {
+          state.commit('setTimeline', response.data);
+          state.commit('resetError');
+        })
+        .catch((error) => {
+          state.commit('setError', error.response.data);
+        });
+    }
   },
 });
