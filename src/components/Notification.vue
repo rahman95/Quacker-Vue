@@ -1,21 +1,18 @@
 <template>
-  <div class="ui message" :class="type">
-    {{ message }}
+  <div v-show="error.error" class="ui message" :class="error.status">
+    {{ error.msg }}
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Notification',
-  props: {
-    message: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapGetters({
+      error: 'getError'
+    })
   },
 };
 </script>

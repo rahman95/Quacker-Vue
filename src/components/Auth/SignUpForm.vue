@@ -2,11 +2,7 @@
   <div class="ui stackable three column centered grid container">
     <div class="column">
       <h2 class="ui dividing header">Sign Up, it's free!</h2>
-      <Notification
-        :message="notification.message"
-        :type="notification.type"
-        v-if="notification.message"
-      />
+      <Notification/>
       <form class="ui form" @submit.prevent="signup">
         <div class="field" :class="{ error: errors.has('name') }">
           <label>Full Name</label>
@@ -87,10 +83,6 @@ export default {
       username: '',
       email: '',
       password: '',
-      notification: {
-        message: '',
-        type: '',
-      },
     };
   },
   computed: {
@@ -100,7 +92,6 @@ export default {
   },
   methods: {
     signup() {
-      // eslint-disable-next-line
       this.$store.dispatch('signUp', {
         name: this.name,
         username: this.username,
