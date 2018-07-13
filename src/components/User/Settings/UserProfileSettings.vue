@@ -50,16 +50,16 @@
 </template>
 
 <script>
-import Notification from '@/components/Notification'
-import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu'
+import Notification from '@/components/Notification';
+import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu';
 
 export default {
   name: 'UserProfileSettings',
   components: {
     Notification,
-    UserSettingsMenu
+    UserSettingsMenu,
   },
-  data () {
+  data() {
     return {
       name: this.user.name,
       username: this.user.username,
@@ -67,28 +67,28 @@ export default {
       bio: this.user.bio,
       location: this.user.location,
       websiteUrl: this.user.websiteUrl,
-    }
+    };
   },
   computed: {
     ...mapGetters({
-      user: 'getUser'
-    })
+      user: 'getUser',
+    }),
   },
-  created () {
-    this.fetchAuthenticatedUser()
+  created() {
+    this.fetchAuthenticatedUser();
   },
   methods: {
-    fetchAuthenticatedUser () {
+    fetchAuthenticatedUser() {
       this.$store.dispatch('me');
     },
-    updateProfile () {
+    updateProfile() {
       this.$store.dispatch('updateProfile', {
         name: this.name,
         username: this.username,
         email: this.email,
         password: this.password,
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>

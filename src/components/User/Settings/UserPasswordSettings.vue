@@ -35,47 +35,47 @@
 </template>
 
 <script>
-import Notification from '@/components/Notification'
-import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu'
+import Notification from '@/components/Notification';
+import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu';
 
 export default {
   name: 'UserProfileEditForm',
   components: {
     Notification,
-    UserSettingsMenu
+    UserSettingsMenu,
   },
-  data () {
+  data() {
     return {
       password: '',
       newPassword: '',
       confirmPassword: '',
-    }
+    };
   },
   computed: {
-    isFormValid () {
-      return Object.keys(this.fields).every(key => this.fields[key].valid)
+    isFormValid() {
+      return Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
   methods: {
-    changePassword () {
+    changePassword() {
       this.$store.dispatch('changePassword', {
         password: this.password,
         newPassword: this.newPassword,
       })
-      .then(() => {
+        .then(() => {
         // clear form inputs
-        this.password = this.newPassword = this.confirmPassword = '';
-      })
-      .catch(() => {
-        // clear form inputs
-        this.password = this.newPassword = this.confirmPassword = ''
-
-        // clear form error messages
-        this.$nextTick(() => {
-            this.$validator.reset()
+          this.password = this.newPassword = this.confirmPassword = '';
         })
-      });
-    }
-  }
-}
+        .catch(() => {
+        // clear form inputs
+          this.password = this.newPassword = this.confirmPassword = '';
+
+          // clear form error messages
+          this.$nextTick(() => {
+            this.$validator.reset();
+          });
+        });
+    },
+  },
+};
 </script>

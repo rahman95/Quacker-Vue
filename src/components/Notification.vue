@@ -11,8 +11,8 @@ export default {
   name: 'Notification',
   computed: {
     ...mapGetters({
-      error: 'getError'
-    })
+      error: 'getError',
+    }),
   },
 };
 </script>

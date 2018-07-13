@@ -14,38 +14,38 @@
 </template>
 
 <script>
-import UserSidebar from '@/components/User/UserSidebar'
-import Tweets from '@/components/Tweet/Tweets'
+import UserSidebar from '@/components/User/UserSidebar';
+import Tweets from '@/components/Tweet/Tweets';
 
 export default {
   name: 'Home',
   components: {
     UserSidebar,
-    Tweets
+    Tweets,
   },
-  data () {
+  data() {
     return {
       user: this.$computed.user,
       tweets: this.$computed.tweets,
-    }
+    };
   },
   computed: {
     ...mapGetters({
       user: 'getUser',
       tweets: 'getTimeline',
-    })
+    }),
   },
-  created () {
-    this.fetchAuthenticatedUser()
-    this.fetchUserTimeline()
+  created() {
+    this.fetchAuthenticatedUser();
+    this.fetchUserTimeline();
   },
   methods: {
-    fetchAuthenticatedUser () {
+    fetchAuthenticatedUser() {
       this.$store.dispatch('me');
     },
-    fetchUserTimeline () {
+    fetchUserTimeline() {
       this.$store.dispatch('fetchTimeline');
-    }
-  }
-}
+    },
+  },
+};
 </script>

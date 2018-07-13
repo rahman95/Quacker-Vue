@@ -26,27 +26,27 @@ export default {
   props: {
     user: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
-      tweet: ''
-    }
+      tweet: '',
+    };
   },
   computed: {
-    isFormValid () {
-      return !!this.tweet
-    }
+    isFormValid() {
+      return !!this.tweet;
+    },
   },
   methods: {
-    postTweet () {
+    postTweet() {
       this.$store.dispatch('postTweet')
-      .then(() => {
+        .then(() => {
         // clear input field
-        this.tweet = ''
-      })
-    }
+          this.tweet = '';
+        });
+    },
   },
-}
+};
 </script>

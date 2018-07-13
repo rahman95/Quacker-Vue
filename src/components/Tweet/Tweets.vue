@@ -9,22 +9,22 @@
 </template>
 
 <script>
-import Tweet from '@/components/Tweet/Tweet'
+import Tweet from '@/components/Tweet/Tweet';
 
 export default {
   name: 'Tweets',
   components: {
-    Tweet
+    Tweet,
   },
   props: {
     tweets: {
       type: Array,
-      required: true
+      required: true,
     },
     authUser: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

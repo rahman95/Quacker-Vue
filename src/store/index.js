@@ -207,5 +207,35 @@ export default new Vuex.Store({
           state.commit('setError', error.response.data);
         });
     },
+    favouriteTweet: (state, payload) => {
+      Api
+        .post('/favorites/create', {
+          tweet_id: payload.tweet_id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then(response => response.data.data);
+    },
+    unFavouriteTweet: (state, payload) => {
+      Api
+        .delete(`/favorites/destroy/${payload.tweet_id}`, {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then(response => response.data.data);
+    },
+    deleteTweet: (state, payload) => {
+      Api
+        .delete(`/tweets/destroy/${payload.tweet_id}`, {
+          headers: {
+            Authorization: `Bearer ${state.getters.getToken}`,
+          },
+        })
+        .then(response => response.data.data);
+    },
   },
 });

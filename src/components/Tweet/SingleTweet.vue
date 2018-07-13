@@ -50,6 +50,11 @@ export default {
   created () {
     this.fetchTweet()
   },
+  computed: {
+      isFormValid () {
+          return !!this.reply
+      }
+  },
   methods: {
     fetchTweet () {
       this.$store.dispatch('fetchTweetById', {
@@ -66,10 +71,11 @@ export default {
     replyTweet () {
       this.$store.dispatch('replyTweetById', {
         tweet_id: this.$route.params.id,
-        reply:
+        reply: this.reply
       })
       .then((response) => {
         this.replies.unshift(response.data)
+        this.reply = '';
       })
     },
   }

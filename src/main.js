@@ -10,9 +10,9 @@ import store from './store';
 Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 
-Vue.filter('timeAgo', date => moment(date).fromNow())
-Vue.filter('joined', date => moment(date).format('MMMM YYYY'))
-Vue.filter('dob', date => moment(date).format('MMMM Do YYYY'))
+Vue.filter('timeAgo', date => moment(date).fromNow());
+Vue.filter('joined', date => moment(date).format('MMMM YYYY'));
+Vue.filter('dob', date => moment(date).format('MMMM Do YYYY'));
 
 /* eslint-disable no-new */
 new Vue({
