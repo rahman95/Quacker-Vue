@@ -52,6 +52,7 @@
 <script>
 import Notification from '@/components/Notification';
 import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'UserProfileSettings',

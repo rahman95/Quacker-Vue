@@ -16,6 +16,7 @@
 <script>
 import UserSidebar from '@/components/User/UserSidebar';
 import Tweets from '@/components/Tweet/Tweets';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',

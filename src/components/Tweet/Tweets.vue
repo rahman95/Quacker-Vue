@@ -1,9 +1,11 @@
 <template>
     <div class="ui feed">
         <Tweet
-            v-for="tweet in tweets"
-            :key="tweet.id"
-            :tweet="tweet"
+          v-for="tweet in tweets"
+          :key="tweet.id"
+          :tweet="tweet"
+          :auth-user="authUser"
+          v-on:delete="removeDeletedTweet"
         />
     </div>
 </template>
@@ -26,5 +28,14 @@ export default {
       required: true,
     },
   },
+  methods: {
+    removeDeletedTweet (tweetId) {
+      const filteredTweets = this.tweets.filter(tweet => {
+          return tweet.id !== tweetId
+      })
+
+      this.$emit('update:tweets', filteredTweets)
+    }
+  }
 };
 </script>
